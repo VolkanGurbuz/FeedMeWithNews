@@ -89,7 +89,7 @@ public class ListActivity extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("accept", "application/json");
-                params.put("apikey", "9118c37f952a4559b7ae0c4472cd9ef1");
+                params.put("apikey", "buraya hurriyet apikey i gelmeli");
                 return params;
             }
         };
