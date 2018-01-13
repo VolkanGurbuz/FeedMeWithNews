@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">FeedMeWith</string>
+
+    <string-array name="listOfTopic">
+        <item>teknoloji</item>
+        <item>spor</item>
+        <item>gundem</item>
+        <item>seyahat</item>
+
+    </string-array>
+
+</resources>
