@@ -21,10 +21,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ListActivity extends AppCompatActivity {
+
+  public class ListActivity extends AppCompatActivity {
 
 
-    ArrayList<NewsModel> teknolojiListesi, sporListesi, gundemListesi, kulturListesi;
+    ArrayList<NewsModel> list;
     private ListView listView;
     private NewAdapter newAdapter;
 
@@ -42,7 +43,7 @@ public class ListActivity extends AppCompatActivity {
             getTechInfoFromWebsite(value);
             //The key argument here must match that used in the other activity
         }
-        newAdapter = new NewAdapter(this, teknolojiListesi);
+        newAdapter = new NewAdapter(this, list);
 
         listView.setAdapter(newAdapter);
 
@@ -53,7 +54,7 @@ public class ListActivity extends AppCompatActivity {
     protected void getTechInfoFromWebsite(String topic) {
 
 
-        teknolojiListesi = new ArrayList<>();
+        list = new ArrayList<>();
 
         final ProgressDialog pd = new ProgressDialog(this, ProgressDialog.STYLE_SPINNER);
         pd.setMessage("Lütfen bekleyiniz, bilgileri getiriyorum...");
@@ -68,28 +69,28 @@ public class ListActivity extends AppCompatActivity {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
-                    public void onResponse(String response) {/*dönen cevabı parse edeceğimiz yer*/
+                    public void onResponse(String response) {
                         pd.dismiss();
                         JsonArray jsonArray = new JsonParser().parse(response).getAsJsonArray();
                         for (int i = 0; i < jsonArray.size(); i++) {
                             NewsModel haberModel = gson.fromJson(jsonArray.get(i), NewsModel.class);
-                            teknolojiListesi.add(haberModel);
+                            list.add(haberModel);
                         }
                         newAdapter.notifyDataSetChanged();
                     }
                 }, new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(VolleyError error) {/*hata mesajını alacağımız yer*/
+            public void onErrorResponse(VolleyError error) {
                 Log.e("responseErr", error.getMessage());
                 pd.dismiss();
             }
         }) {
-            //sağ tık->generate->override methods->getHeaders()'ı seçiyoruz
+
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("accept", "application/json");
-                params.put("apikey", "buraya hurriyet apikey i gelmeli");
+                params.put("apikey", "api key buraya gelmeli");
                 return params;
             }
         };
@@ -101,3 +102,4 @@ public class ListActivity extends AppCompatActivity {
 
 
 }
+
